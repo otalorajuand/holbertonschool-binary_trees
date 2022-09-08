@@ -1,26 +1,5 @@
 #include "binary_trees.h"
 
-/**
- * _size - measures the size of a binary tree.
- * @tree: The tree to be measured.
-* Return: The size of the tree.
- */
-
-size_t _size(const binary_tree_t *tree)
-{
-	size_t size = 0, size_left = 0, size_right = 0;
-
-	if (!tree)
-		return (size);
-
-	if (!tree->left && !tree->right)
-		return (size + 1);
-
-	size_left = tree->left ? _size(tree->left) : 0;
-	size_right = tree->right ? _size(tree->right) : 0;
-
-	return (size_left + size_right + 1);
-}
 
 /**
  * binary_tree_is_full - checks if a binary tree is full.
@@ -30,8 +9,19 @@ size_t _size(const binary_tree_t *tree)
 
 int binary_tree_is_full(const binary_tree_t *tree)
 {
+	int left = 0, right = 0;
+
 	if (!tree)
 		return (0);
 
-	return (_size(tree->left) == _size(tree->right) ? 1 : 0);
+	if ((!tree->left && tree->right) || (tree->left && !tree->right))
+		return (0);
+
+	if (tree->left)
+		left = binary_tree_is_full(tree->left);
+
+	if (tree->right)
+		right = binary_tree_is_full(tree->right);
+
+	return (!(!left != !right));
 }
