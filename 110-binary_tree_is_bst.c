@@ -60,12 +60,12 @@ int min_value(const binary_tree_t *tree)
 int binary_tree_is_bst(const binary_tree_t *tree)
 {
 	if (!tree)
-		return (1);
-
-	if (tree->left != NULL && max_value(tree->left) > tree->n)
 		return (0);
 
-	if (tree->right != NULL && min_value(tree->right) < tree->n)
+	if (tree->left != NULL && max_value(tree->left) >= tree->n)
+		return (0);
+
+	if (tree->right != NULL && min_value(tree->right) <= tree->n)
 		return (0);
 
 	if (binary_tree_is_bst(tree->left) == 0 ||
